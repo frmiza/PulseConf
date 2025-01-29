@@ -1,7 +1,6 @@
 #ifndef AUDIO_DEVICE_HPP
 #define AUDIO_DEVICE_HPP
 
-#include <stdlib.h>
 #include <pulse/pulseaudio.h>
 
 namespace ADV {
