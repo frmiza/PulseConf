@@ -3,9 +3,6 @@
 #include <pulse/pulseaudio.h>
 
 ADV::AudioDeviceInput::AudioDeviceInput(){
-  
-  devices_read = false;
-
   pa_context_set_state_callback(context, &ADV::AudioDeviceInput::stateInfoCallback, this);
   pa_context_connect(context, nullptr, PA_CONTEXT_NOFLAGS, nullptr);
 }
@@ -38,12 +35,8 @@ void ADV::AudioDeviceInput::sourceInfoCallback(pa_context *context, const pa_sou
 
 void ADV::AudioDeviceInput::addDeviceInfo(DVI::DeviceInfo* device_info){
   if(device_info->getDeviceName().find("monitor") == std::string::npos){
-    source_info.push_back(device_info);
+    this->device_info.push_back(device_info);
   }
-}
-
-std::vector<DVI::DeviceInfo*> ADV::AudioDeviceInput::getSourceInfo(){
-  return source_info;
 }
 
 void ADV::AudioDeviceInput::readAudioDevices() {
