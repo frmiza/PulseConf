@@ -1,4 +1,4 @@
-#include "AudioDeviceInfo.hpp"
+#include "DeviceInfo.hpp"
 #include <cstddef>
 #include <vector>
 #include <pulse/introspect.h>

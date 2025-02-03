@@ -1,7 +1,7 @@
 #ifndef AUDIO_DEVICE_HPP
 #define AUDIO_DEVICE_HPP
 
-#include "AudioDeviceInfo.hpp"
+#include "DeviceInfo.hpp"
 #include <vector>
 #include <pulse/pulseaudio.h>
 

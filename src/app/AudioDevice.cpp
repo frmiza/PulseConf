@@ -1,5 +1,5 @@
 #include "AudioDevice.hpp"
-#include "AudioDeviceInfo.hpp"
+#include "DeviceInfo.hpp"
 #include <vector>
 #include <pulse/context.h>
 #include <pulse/mainloop.h>
