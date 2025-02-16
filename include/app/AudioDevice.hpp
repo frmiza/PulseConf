@@ -24,8 +24,8 @@ public:
   AudioDevice();
   ~AudioDevice();
   
-  virtual void readAudioDevices() = 0;
-  virtual void addDeviceInfo(DVI::DeviceInfo* device_info) = 0;
+  //virtual void readAudioDevices() = 0;
+  //virtual void addDeviceInfo(DVI::DeviceInfo* device_info) = 0;
   
   std::vector<DVI::DeviceInfo*> getSourceInfo();
 };

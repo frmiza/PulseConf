@@ -2,7 +2,7 @@
 #define AUDIO_DEVICE_IN_HPP
 
 #include "AudioDevice.hpp"
-#include "DeviceInfo.hpp"
+#include "DeviceSourceInfo.hpp"
 
 namespace  ADV {
 
@@ -17,8 +17,8 @@ private:
 public:
   
   AudioDeviceInput();
-  void readAudioDevices() override;
-  void addDeviceInfo(DVI::DeviceInfo* device_info) override;
+  void readAudioDevices();
+  void addDeviceInfo(DVI::DeviceSourceInfo* device_info);
 
 };
 
