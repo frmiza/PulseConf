@@ -3,6 +3,7 @@
 
 #include "DeviceInfo.hpp"
 #include <vector>
+#include<memory>
 #include <pulse/pulseaudio.h>
 
 namespace ADV {
@@ -23,9 +24,6 @@ public:
   
   AudioDevice();
   ~AudioDevice();
-  
-  //virtual void readAudioDevices() = 0;
-  //virtual void addDeviceInfo(DVI::DeviceInfo* device_info) = 0;
   
   std::vector<DVI::DeviceInfo*> getSourceInfo();
 };

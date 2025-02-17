@@ -18,7 +18,7 @@ public:
   
   AudioDeviceInput();
   void readAudioDevices();
-  void addDeviceInfo(DVI::DeviceSourceInfo* device_info);
+  void addDeviceInfo(DVI::DeviceInfo* device_info);
 
 };
 

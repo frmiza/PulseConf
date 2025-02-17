@@ -1,23 +1,31 @@
 #include "DeviceInfo.hpp"
-#include <cstddef>
 #include <string>
 #include <vector>
 #include <pulse/introspect.h>
 
 namespace  DVI {
 
-DeviceInfo::DeviceInfo(std::string dv_name,
-                       std::string dv_desc,
-                       std::string dv_driver) :
-  device_name(dv_name),
-  device_description(dv_desc),
-  device_driver(dv_driver)
-  {
-    device_state = std::string();
-    device_ports = std::vector<port_info>();
-  }
+DeviceInfo::DeviceInfo(){
+  device_name =  std::string();
+  device_description = std::string();
+  device_driver = std::string();
+  device_state = std::string();
+  device_ports = std::vector<port_info>();
+}
 
 DVI::DeviceInfo::~DeviceInfo(){}
+
+void DeviceInfo::setDeviceName(std::string dv_name){
+  device_name = dv_name;
+}
+
+void DeviceInfo::setDeviceDescription(std::string dv_description){
+  device_description = dv_description;
+}
+
+void DeviceInfo::setDeviceDriver(std::string dv_driver){
+  device_driver = dv_driver;
+}
 
 std::string DeviceInfo::getDeviceName(){
   return device_name;
