@@ -1,6 +1,4 @@
-#include "DeviceInfo.hpp"
 #include "DeviceSourceInfo.hpp"
-#include<iostream>
 #include <cstddef>
 #include <pulse/def.h>
 #include <pulse/introspect.h>
@@ -32,10 +30,6 @@ namespace DVI {
     setDeviceDriver(info.driver);
     stateToString(info.state);
     addDevicePort(info.ports, info.active_port);
-    //std::cout << device_name << "\n";
-    //std::cout << device_description << "\n";
-    //std::cout << device_driver << "\n";
-    //std::cout << device_state << "\n";
   }
 }
 

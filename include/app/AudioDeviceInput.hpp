@@ -2,7 +2,6 @@
 #define AUDIO_DEVICE_IN_HPP
 
 #include "AudioDevice.hpp"
-#include "DeviceSourceInfo.hpp"
 
 namespace  ADV {
 

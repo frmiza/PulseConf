@@ -2,20 +2,12 @@
 #define DEVICE_SOURCE_INFO_HPP
 
 #include "DeviceInfo.hpp"
-#include <string>
-#include <map>
 #include <pulse/def.h>
 #include <pulse/introspect.h>
 
 namespace DVI{
 
 class DeviceSourceInfo : public DeviceInfo{
-
-std::map<pa_source_state, std::string> avaliable_state{
-  {PA_SOURCE_RUNNING, "RUNNING"}, 
-  {PA_SOURCE_IDLE, "IDLE"}, 
-  {PA_SOURCE_SUSPENDED, "SUSPENDED"}
-};
   
 public:
 

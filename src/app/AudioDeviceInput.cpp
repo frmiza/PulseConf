@@ -2,7 +2,6 @@
 #include "DeviceInfo.hpp"
 #include "DeviceSourceInfo.hpp"
 #include <string>
-#include <memory>
 #include <pulse/pulseaudio.h>
 
 ADV::AudioDeviceInput::AudioDeviceInput(){
@@ -30,7 +29,6 @@ void ADV::AudioDeviceInput::sourceInfoCallback(pa_context *context, const pa_sou
     instance->devices_read = true;
     return;
   }
- 
 
   DVI::DeviceSourceInfo* dvc_info = new DVI::DeviceSourceInfo();
   dvc_info->setupDevice(*info);
