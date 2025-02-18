@@ -8,14 +8,21 @@ namespace DVI {
   
   DeviceSourceInfo::DeviceSourceInfo(){}  
 
-  void DeviceSourceInfo::stateToString(pa_source_state state){
-    device_state = (state != -1) ? avaliable_state[state] : "Unknown";
+  void DeviceSourceInfo::stateToString(void* state){
+    
+    if(!state) {return;}
+    pa_source_state* c_state = static_cast<pa_source_state*>(state);
+    device_state = (*(c_state) != -1) ? avaliable_state[*(c_state)] : "Unknown";
   }
  
-  void DeviceSourceInfo::addDevicePort(pa_source_port_info** ports, pa_source_port_info* active_port){
+  void DeviceSourceInfo::addDevicePort(void* ports, void* active_port){
     
-    for(pa_source_port_info** s_ports = ports; (*s_ports) != NULL; s_ports++){
-      if((*s_ports) == active_port){
+    if(!ports || !active_port) {return;}
+    pa_source_port_info** c_ports = static_cast<pa_source_port_info**>(ports);
+    pa_source_port_info* c_active_port = static_cast<pa_source_port_info*>(active_port);
+
+    for(pa_source_port_info** s_ports = c_ports; (*s_ports) != NULL; s_ports++){
+      if((*s_ports) == c_active_port){
         device_ports.push_back({(*s_ports)->name,(*s_ports)->description, "Active"});   
       }
       else{
@@ -28,8 +35,9 @@ namespace DVI {
     setDeviceName(info.name);
     setDeviceDescription(info.description);
     setDeviceDriver(info.driver);
-    stateToString(info.state);
-    addDevicePort(info.ports, info.active_port);
+    stateToString(static_cast<void*>(const_cast<pa_source_state*>(&info.state)));
+    addDevicePort(static_cast<void*>(info.ports),
+                  static_cast<void*>(info.active_port));
   }
 }
 

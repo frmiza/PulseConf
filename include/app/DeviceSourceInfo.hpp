@@ -13,8 +13,9 @@ public:
 
   DeviceSourceInfo();
 
-  void stateToString(pa_source_state state);
-  void addDevicePort(pa_source_port_info** ports, pa_source_port_info* active_port);
+  void stateToString(void* state) override;
+  void addDevicePort(void* ports, void* active_port) override;
+  
   void setupDevice(const pa_source_info& info);
 
 };

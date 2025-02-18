@@ -30,9 +30,13 @@ public:
     {PA_SOURCE_IDLE, "IDLE"}, 
     {PA_SOURCE_SUSPENDED, "SUSPENDED"}
   };
+
   DeviceInfo();
   
   virtual ~DeviceInfo();
+
+  virtual void stateToString(void* state) = 0;
+  virtual void addDevicePort(void* ports, void* active_port) = 0;
 
   void setDeviceName(std::string dv_name);
   void setDeviceDescription(std::string dv_description);
