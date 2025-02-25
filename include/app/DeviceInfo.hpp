@@ -4,6 +4,7 @@
 #include "PortInfo.hpp"
 #include <cstdlib>
 #include <map>
+#include <memory>
 #include <string>
 #include <vector>
 #include <pulse/introspect.h>
@@ -11,10 +12,8 @@
 #include <pulse/def.h>
 
 namespace DVI {
-  
 
 class DeviceInfo {
-
 
 protected:
   std::string device_name;
@@ -24,7 +23,6 @@ protected:
   std::vector<port_info> device_ports;
 
 public:
-
   std::map<pa_source_state, std::string> avaliable_state{
     {PA_SOURCE_RUNNING, "RUNNING"}, 
     {PA_SOURCE_IDLE, "IDLE"}, 
@@ -34,9 +32,7 @@ public:
   DeviceInfo();
   
   virtual ~DeviceInfo();
-
-  virtual void stateToString(void* state) = 0;
-  virtual void addDevicePort(void* ports, void* active_port) = 0;
+  virtual std::unique_ptr<DeviceInfo> clone() = 0;
 
   void setDeviceName(std::string dv_name);
   void setDeviceDescription(std::string dv_description);
