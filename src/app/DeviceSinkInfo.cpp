@@ -1,4 +1,4 @@
-#include "DeviceSourceInfo.hpp"
+#include "DeviceSinkInfo.hpp"
 #include "DeviceInfo.hpp"
 #include <cstddef>
 #include <memory>
@@ -8,20 +8,20 @@
 
 namespace DVI {
   
-  DeviceSourceInfo::DeviceSourceInfo(){}  
-  DeviceSourceInfo::~DeviceSourceInfo(){}
+  DeviceSinkInfo::DeviceSinkInfo(){}  
+  DeviceSinkInfo::~DeviceSinkInfo(){}
 
-  void DeviceSourceInfo::stateToString(pa_source_state state){
+  void DeviceSinkInfo::stateToString(pa_sink_state state){
     
     if(!state) {return;}
     device_state = (state != -1) ? avaliable_state[state] : "Unknown";
   }
  
-  void DeviceSourceInfo::addDevicePort(pa_source_port_info** ports, pa_source_port_info* active_port){
+  void DeviceSinkInfo::addDevicePort(pa_sink_port_info** ports, pa_sink_port_info* active_port){
     
     if(!ports || !active_port) {return;}
 
-    for(pa_source_port_info** s_ports = ports; (*s_ports) != NULL; s_ports++){
+    for(pa_sink_port_info** s_ports = ports; (*s_ports) != NULL; s_ports++){
       if((*s_ports) == active_port){
         device_ports.push_back({(*s_ports)->name,(*s_ports)->description, "Active"});   
       }
@@ -31,7 +31,7 @@ namespace DVI {
     } 
   }
 
-  void DeviceSourceInfo::setupDevice(const pa_source_info& info){
+  void DeviceSinkInfo::setupDevice(const pa_sink_info& info){
     setDeviceName(info.name);
     setDeviceDescription(info.description);
     setDeviceDriver(info.driver);
@@ -39,7 +39,7 @@ namespace DVI {
     addDevicePort(info.ports,info.active_port);
   }
 
-  std::unique_ptr<DeviceInfo> DeviceSourceInfo::clone(){
-    return std::make_unique<DeviceSourceInfo>(*this);
+  std::unique_ptr<DeviceInfo> DeviceSinkInfo::clone(){
+    return std::make_unique<DeviceSinkInfo>(*this);
   }
 }

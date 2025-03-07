@@ -1,15 +1,20 @@
 #include "AudioDeviceInput.hpp"
 #include "DeviceInfo.hpp"
+#include "DeviceInfoFactory.hpp"
+#include "DeviceType.hpp"
 #include "DeviceSourceInfo.hpp"
 #include <string>
+#include <memory>
 #include <pulse/pulseaudio.h>
 
-ADV::AudioDeviceInput::AudioDeviceInput(){
+namespace ADV{
+
+AudioDeviceInput::AudioDeviceInput(){
   pa_context_set_state_callback(context, &ADV::AudioDeviceInput::stateInfoCallback, this);
   pa_context_connect(context, nullptr, PA_CONTEXT_NOFLAGS, nullptr);
 }
 
-void ADV::AudioDeviceInput::stateInfoCallback(pa_context *context, void *userdata) {
+void AudioDeviceInput::stateInfoCallback(pa_context *context, void *userdata) {
     auto *instance = static_cast<AudioDeviceInput *>(userdata);
     pa_context_state_t state = pa_context_get_state(context);
 
@@ -21,7 +26,7 @@ void ADV::AudioDeviceInput::stateInfoCallback(pa_context *context, void *userdat
   }
 }
 
-void ADV::AudioDeviceInput::sourceInfoCallback(pa_context *context, const pa_source_info *info, int eol, void *userdata) {
+void AudioDeviceInput::sourceInfoCallback(pa_context *context, const pa_source_info *info, int eol, void *userdata) {
   
   auto *instance = static_cast<AudioDeviceInput *>(userdata);
   
@@ -30,20 +35,23 @@ void ADV::AudioDeviceInput::sourceInfoCallback(pa_context *context, const pa_sou
     return;
   }
 
-  DVI::DeviceSourceInfo* dvc_info = new DVI::DeviceSourceInfo();
-  dvc_info->setupDevice(*info);
+  DIF::DeviceInfoFactory device_factory;
+  auto dvc_info = device_factory.createDeviceInfo(DVI::INPUT);
+  auto *source_info = dynamic_cast<DVI::DeviceSourceInfo *>(dvc_info.get());
+  source_info->setupDevice(*info);
 
-  instance->addDeviceInfo(dvc_info);
+  instance->addDeviceInfo(std::move(dvc_info));
 }
 
-void ADV::AudioDeviceInput::addDeviceInfo(DVI::DeviceInfo* device_info){
-  if(device_info->getDeviceName().find("monitor") == std::string::npos){
-    this->device_info.push_back(std::move(device_info));
-  }
+void AudioDeviceInput::addDeviceInfo(std::unique_ptr<DVI::DeviceInfo> device_info) {
+    if (device_info->getDeviceName().find("monitor") == std::string::npos) {
+        this->device_info.push_back(std::move(device_info)); 
+    }
 }
 
-void ADV::AudioDeviceInput::readAudioDevices() {
+void AudioDeviceInput::readAudioDevices() {
   while (!devices_read) {
     runMainLoop();
   }
+}
 }
