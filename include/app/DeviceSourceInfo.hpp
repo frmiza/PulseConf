@@ -11,6 +11,13 @@ namespace DVI{
 class DeviceSourceInfo : public DeviceInfo{
   
 public:
+
+  std::map<pa_source_state, std::string> avaliable_state{
+    {PA_SOURCE_RUNNING, "RUNNING"}, 
+    {PA_SOURCE_IDLE, "IDLE"}, 
+    {PA_SOURCE_SUSPENDED, "SUSPENDED"}
+  };
+  
   DeviceSourceInfo();
   ~DeviceSourceInfo() override;
 
