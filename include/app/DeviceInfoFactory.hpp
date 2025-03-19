@@ -15,7 +15,7 @@ private:
 
 public: 
   DeviceInfoFactory();
-  std::unique_ptr<DVI::DeviceInfo> createDeviceInfo(DVI::DeviceType device_type);
+  std::unique_ptr<DVI::DeviceInfo> getObjDeviceInfo(DVI::DeviceType device_type);
 };
 }
 

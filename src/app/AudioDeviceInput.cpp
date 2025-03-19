@@ -36,7 +36,7 @@ void AudioDeviceInput::sourceInfoCallback(pa_context *context, const pa_source_i
   }
 
   DIF::DeviceInfoFactory device_factory;
-  auto dvc_info = device_factory.createDeviceInfo(DVI::INPUT);
+  auto dvc_info = device_factory.getObjDeviceInfo(DVI::INPUT);
   auto *source_info = dynamic_cast<DVI::DeviceSourceInfo *>(dvc_info.get());
   source_info->setupDevice(*info);
 
