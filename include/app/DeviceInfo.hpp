@@ -16,19 +16,27 @@ namespace DVI {
 class DeviceInfo {
 
 protected:
+  
   std::string device_name;
   std::string device_description;
   std::string device_driver;
   std::string device_state;
   std::vector<port_info> device_ports;
 
+
 public:
 
   DeviceInfo();
   
+  template<typename T_state>
+  void stateToString(T_state state, const std::map<T_state, std::string>& state_map);
+  
+  template <typename T_PortInfo>
+  void addDevicePort(T_PortInfo** ports, T_PortInfo* active_port);
+
   virtual ~DeviceInfo();
   virtual std::unique_ptr<DeviceInfo> clone() = 0;
-
+  
   void setDeviceName(std::string dv_name);
   void setDeviceDescription(std::string dv_description);
   void setDeviceDriver(std::string dv_driver);
@@ -42,5 +50,7 @@ public:
 };
 
 }
+
+#include "DeviceInfo.ipp"
 
 #endif // AUDIO_DEVICE_INFO_HPP

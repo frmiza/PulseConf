@@ -13,7 +13,7 @@ class DeviceSinkInfo : public DeviceInfo{
   
 public:
 
-  std::map<pa_sink_state, std::string> avaliable_state{
+  const std::map<pa_sink_state, std::string> avaliable_state{
     {PA_SINK_RUNNING, "RUNNING"}, 
     {PA_SINK_IDLE, "IDLE"}, 
     {PA_SINK_SUSPENDED, "SUSPENDED"}
@@ -22,9 +22,6 @@ public:
   DeviceSinkInfo();
   ~DeviceSinkInfo() override;
 
-  void stateToString(pa_sink_state state);
-  void addDevicePort(pa_sink_port_info** ports, pa_sink_port_info* active_port);
-  
   void setupDevice(const pa_sink_info& info);
   std::unique_ptr<DeviceInfo> clone() override;
 

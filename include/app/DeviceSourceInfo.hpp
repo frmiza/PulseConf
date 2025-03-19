@@ -12,7 +12,7 @@ class DeviceSourceInfo : public DeviceInfo{
   
 public:
 
-  std::map<pa_source_state, std::string> avaliable_state{
+  const std::map<pa_source_state, std::string> avaliable_state{
     {PA_SOURCE_RUNNING, "RUNNING"}, 
     {PA_SOURCE_IDLE, "IDLE"}, 
     {PA_SOURCE_SUSPENDED, "SUSPENDED"}
@@ -21,9 +21,6 @@ public:
   DeviceSourceInfo();
   ~DeviceSourceInfo() override;
 
-  void stateToString(pa_source_state state);
-  void addDevicePort(pa_source_port_info** ports, pa_source_port_info* active_port);
-  
   void setupDevice(const pa_source_info& info);
   std::unique_ptr<DeviceInfo> clone() override;
 
