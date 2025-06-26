@@ -1,5 +1,4 @@
 #include "AudioDeviceInput.hpp"
-#include "AudioDeviceSourceInfo.hpp"
 #include <pulse/pulseaudio.h>
 #include <string>
 
@@ -32,18 +31,18 @@ void ADV::AudioDeviceInput::sourceInfoCallback(pa_context *context, const pa_sou
     return;
   }
 
-  DVI::DeviceSouceInfo* dvc_info = new DVI::DeviceSouceInfo(info->name, info->description, info->driver, info->state);
+  DVI::DeviceInfo* dvc_info = new DVI::DeviceInfo(info->name, info->description, info->driver, info->state);
   instance->addDeviceInfo(dvc_info);
 
 }
 
-void ADV::AudioDeviceInput::addDeviceInfo(DVI::DeviceSouceInfo* device_info){
+void ADV::AudioDeviceInput::addDeviceInfo(DVI::DeviceInfo* device_info){
   if(device_info->getDeviceName().find("monitor") == std::string::npos){
     source_info.push_back(device_info);
   }
 }
 
-std::vector<DVI::DeviceSouceInfo*> ADV::AudioDeviceInput::getSourceInfo(){
+std::vector<DVI::DeviceInfo*> ADV::AudioDeviceInput::getSourceInfo(){
   return source_info;
 }
 
